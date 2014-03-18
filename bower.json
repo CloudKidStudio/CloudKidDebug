@@ -1,12 +1,5 @@
 {
     "name": "cloudkid-debug",
     "version": "1.0.0",
-    "main": "deploy/cloudkid-debug.min.js",
-    "ignore": [
-        "build.xml",
-        "build.properties",
-        "docs",
-        "src",
-        "src.order"
-    ]
+    "main": "Debug.js"
 }

@@ -1,4 +1,4 @@
-(function(global, undefined){
+(function(window, undefined){
 	
 	/**
 	*  A static closure to provide easy access to the console
@@ -16,7 +16,7 @@
 	*  @private
 	*  @property {bool} hasConsole
 	*/
-	var hasConsole = (global.console !== undefined);
+	var hasConsole = (window.console !== undefined);
 	
 	/** 
 	* The most general default debug level
@@ -136,9 +136,9 @@
 	Debug.connect = function(ipAddr)
 	{
 		// Make sure WebSocket exists without prefixes for us
-		if(!("WebSocket" in global) && !("MozWebSocket" in global)) return false;
+		if(!("WebSocket" in window) && !("MozWebSocket" in window)) return false;
 		
-		global.WebSocket = WebSocket || MozWebSocket; 
+		window.WebSocket = WebSocket || MozWebSocket; 
 		
 		try
 		{
@@ -441,6 +441,6 @@
 	
 	// Make the debug class globally accessible
 	// If the console doesn't exist, use the dummy to prevent errors
-	global.Debug = Debug;
+	window.Debug = Debug;
 	
 }(window));
