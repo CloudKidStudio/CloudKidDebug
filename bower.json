@@ -1,5 +1,5 @@
 {
     "name": "cloudkid-debug",
     "version": "1.0.0",
-    "main": "Debug.js"
+    "main": "dist/cloudkid-debug.min.js"
 }
