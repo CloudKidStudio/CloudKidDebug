@@ -83,6 +83,14 @@
 	*  @property {jQuery} output
 	*/
 	Debug.output = null;
+
+	/**
+	*	If the console is currently connected with JSConsole (jsconsole.com).
+	*	@private
+	*	@static
+	*	@property {bool} _isJSConsole
+	*/
+	Debug._isJSConsole = window.remote === window.console;//The JSConsole script sets one object as 'remote' and trys to overwrite 'console'
 	
 	/** 
 	* Browser port for the websocket browsers tend to block ports 
@@ -241,7 +249,7 @@
 	*/
 	function output(level, args)
 	{
-		if (Debug.output) 
+		if (Debug.output)
 		{
 			Debug.output.append("<div class=\""+level+"\">" + args + "</div>");
 		}
@@ -270,6 +278,64 @@
 			Debug._socket.send(JSON.stringify(Debug._messageObj));
 		}
 	};
+
+	function JSC_stringify(obj, depth)
+	{
+		if(!depth)
+			depth = 1;
+		var spacing = "";
+		var endSpacing = "";
+		for(var i = 0; i < depth * 4; ++i)
+		{
+			spacing += "&nbsp;";
+			if(i < (depth - 1) * 4)
+				endSpacing += "&nbsp;";
+		}
+		var rtn = "{<br />";
+		for(var key in obj)
+		{
+			//avoid doing properties that are known to be DOM objects, because those have circular references
+			if(key == "document" || key == "window" || key == "ownerDocument" || key == "view")
+				continue;
+			if(key == "target" || key == "currentTarget" || key == "originalTarget" || key == "explicitOriginalTarget" || key == "rangeParent")
+				continue;
+			if(key == "srcElement" || key == "relatedTarget" || key == "fromElement" || key == "toElement")
+				continue;
+			switch(typeof obj[key])
+			{
+				case "string":
+				case "number":
+				case "boolean":
+				case "bool":
+					rtn += spacing + key + ": " + obj[key] + "<br />";
+					break;
+				case "object":
+					rtn += spacing + key + ": " + JSC_stringify(obj[key], depth + 1) + "<br />";
+					break;
+				case "function":
+					rtn += spacing + key + ": (function)<br />";
+					break;
+				default:
+					rtn += spacing + key + ": " + obj[key] + "<br />";
+					break;
+			}
+		}
+		rtn += endSpacing + "}";
+		return rtn;
+	}
+
+	function JSC_format(input)
+	{
+		if(typeof input == "string")
+		{
+			return input.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;").replace(/\n/g, "<br />");
+		}
+		else if(typeof input == "object")
+		{
+			return JSC_stringify(input);
+		}
+		return input;
+	}
 	
 	/**
 	*  Log something in the console or remote
@@ -287,7 +353,7 @@
 		}
 		else if (Debug.minLogLevel == Debug.GENERAL && hasConsole) 
 		{
-			console.log(params);
+			console.log(Debug._isJSConsole ? JSC_format(params) : params);
 			output("general", params);
 		}	
 	};
@@ -308,7 +374,7 @@
 		}
 		else if (Debug.minLogLevel <= Debug.DEBUG && hasConsole) 
 		{
-			console.debug(params);
+			console.debug(Debug._isJSConsole ? JSC_format(params) : params);
 			output("debug", params);
 		}
 	};
@@ -329,7 +395,7 @@
 		}
 		else if (Debug.minLogLevel <= Debug.INFO && hasConsole) 
 		{
-			console.info(params);
+			console.info(Debug._isJSConsole ? JSC_format(params) : params);
 			output("info", params);
 		}	
 	};
@@ -350,7 +416,7 @@
 		}
 		else if (Debug.minLogLevel <= Debug.WARN && hasConsole) 
 		{
-			console.warn(params);
+			console.warn(Debug._isJSConsole ? JSC_format(params) : params);
 			output("warn", params);
 		}	
 	};
@@ -371,7 +437,7 @@
 		}
 		else if (hasConsole) 
 		{
-			console.error(params);
+			console.error(Debug._isJSConsole ? JSC_format(params) : params);
 			output("error", params);
 		}	
 	};
@@ -388,7 +454,7 @@
 	{
 		if (hasConsole && Debug.enabled && console.assert) 
 		{
-			console.assert(truth, params);
+			console.assert(truth, Debug._isJSConsole ? JSC_format(params) : params);
 			if (!truth) output("error", params);
 		}	
 	};
@@ -404,7 +470,7 @@
 	{
 		if (Debug.minLogLevel == Debug.GENERAL && hasConsole && Debug.enabled) 
 		{
-			console.dir(params);
+			console.dir(Debug._isJSConsole ? JSC_format(params) : params);
 		}	
 	};
 	
@@ -435,7 +501,7 @@
 	{
 		if (Debug.minLogLevel == Debug.GENERAL && hasConsole && Debug.enabled) 
 		{
-			console.trace(params);
+			console.trace(Debug._isJSConsole ? JSC_format(params) : params);
 		}	
 	};
 	
