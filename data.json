@@ -1,0 +1,496 @@
+{
+    "project": {
+        "name": "CloudKid Debug API",
+        "description": "CloudKid Debug API",
+        "version": "1.0.1",
+        "logo": "cloudkid.png"
+    },
+    "files": {
+        "src/Debug.js": {
+            "name": "src/Debug.js",
+            "modules": {},
+            "classes": {
+                "Debug": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "Debug": {
+            "name": "Debug",
+            "shortname": "Debug",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/Debug.js",
+            "line": 3,
+            "description": "A static closure to provide easy access to the console\nwithout having errors if the console doesn't exist\nto use call: Debug.log('Your log here')",
+            "static": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/Debug.js",
+            "line": 13,
+            "description": "If we have a console",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "hasConsole",
+            "type": "Bool",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 21,
+            "description": "The most general default debug level",
+            "static": 1,
+            "final": 1,
+            "itemtype": "property",
+            "name": "GENERAL",
+            "type": "Int",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 29,
+            "description": "Log level for debug messages",
+            "static": 1,
+            "final": 1,
+            "itemtype": "property",
+            "name": "DEBUG",
+            "type": "Int",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 37,
+            "description": "Log level for debug messages",
+            "static": 1,
+            "final": 1,
+            "itemtype": "property",
+            "name": "INFO",
+            "type": "Int",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 45,
+            "description": "Log level for warning messages",
+            "static": 1,
+            "final": 1,
+            "itemtype": "property",
+            "name": "WARN",
+            "type": "Int",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 53,
+            "description": "Log level for error messages",
+            "static": 1,
+            "final": 1,
+            "itemtype": "property",
+            "name": "ERROR",
+            "type": "Int",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 61,
+            "description": "The minimum log level to show, by default it's set to\nshow all levels of logging.",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "property",
+            "name": "minLogLevel",
+            "type": "Int",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 70,
+            "description": "Boolean to turn on or off the debugging",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "property",
+            "name": "enabled",
+            "type": "Bool",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 78,
+            "description": "The jQuery element to output debug messages to",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "property",
+            "name": "output",
+            "type": "JQuery",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 87,
+            "description": "If the console is currently connected with JSConsole (jsconsole.com).",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "property",
+            "name": "_isJSConsole",
+            "type": "Bool",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 95,
+            "description": "Browser port for the websocket browsers tend to block ports",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_NET_PORT",
+            "type": "Int",
+            "default": "1025",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 104,
+            "description": "If the web socket is connected",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "default": "false",
+            "itemtype": "property",
+            "name": "_isConnected",
+            "type": "Bool",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 113,
+            "description": "The socket connection",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_socket",
+            "type": "WebSocket",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 121,
+            "description": "The current message object being sent to the `WebSocket`",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_messageObj",
+            "type": "Object",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 129,
+            "description": "The `WebSocket` message queue",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_messageQueue",
+            "type": "Array",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 137,
+            "description": "Connect to the `WebSocket`",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "method",
+            "name": "connect",
+            "params": [
+                {
+                    "name": "The",
+                    "description": "IP address to connect to",
+                    "type": "String"
+                }
+            ],
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 168,
+            "description": "Disconnect from the `WebSocket`",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "method",
+            "name": "disconnect",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 183,
+            "description": "Callback when the `WebSocket` is connected",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "method",
+            "name": "onConnect",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 207,
+            "description": "Global window error handler",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "globalErrorHandler",
+            "params": [
+                {
+                    "name": "THe",
+                    "description": "error message"
+                },
+                {
+                    "name": "The",
+                    "description": "url of the file"
+                },
+                {
+                    "name": "The",
+                    "description": "line within the file"
+                }
+            ],
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 222,
+            "description": "Callback for when the websocket is closed",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "method",
+            "name": "onClose",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 242,
+            "description": "Sent to the output",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "method",
+            "name": "output",
+            "params": [
+                {
+                    "name": "level",
+                    "description": "The log level",
+                    "type": "String"
+                },
+                {
+                    "name": "args",
+                    "description": "Additional arguments",
+                    "type": "String"
+                }
+            ],
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 258,
+            "description": "Send a remote log message using the socket connection",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "method",
+            "name": "remoteLog",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to send",
+                    "type": "String"
+                },
+                {
+                    "name": "level",
+                    "description": "The log level to send",
+                    "type": "Level"
+                }
+            ],
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 340,
+            "description": "Log something in the console or remote",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "log",
+            "params": [
+                {
+                    "name": "params",
+                    "description": "The statement or object to log",
+                    "type": "*"
+                }
+            ],
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 361,
+            "description": "Debug something in the console or remote",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "debug",
+            "params": [
+                {
+                    "name": "params",
+                    "description": "The statement or object to debug",
+                    "type": "*"
+                }
+            ],
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 382,
+            "description": "Info something in the console or remote",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "info",
+            "params": [
+                {
+                    "name": "params",
+                    "description": "The statement or object to info",
+                    "type": "*"
+                }
+            ],
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 403,
+            "description": "Warn something in the console or remote",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "warn",
+            "params": [
+                {
+                    "name": "params",
+                    "description": "The statement or object to warn",
+                    "type": "*"
+                }
+            ],
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 424,
+            "description": "Error something in the console or remote",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "error",
+            "params": [
+                {
+                    "name": "params",
+                    "description": "The statement or object to error",
+                    "type": "*"
+                }
+            ],
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 445,
+            "description": "Assert that something is true",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "assert",
+            "params": [
+                {
+                    "name": "truth",
+                    "description": "As statement that is assumed true",
+                    "type": "Bool"
+                },
+                {
+                    "name": "params",
+                    "description": "The message to error if the assert is false",
+                    "type": "*"
+                }
+            ],
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 462,
+            "description": "Method to describe an object in the console",
+            "static": 1,
+            "itemtype": "method",
+            "name": "dir",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "params",
+                    "description": "The object to describe in the console",
+                    "type": "Object"
+                }
+            ],
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 477,
+            "description": "Method to clear the console",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "clear",
+            "class": "Debug"
+        },
+        {
+            "file": "src/Debug.js",
+            "line": 493,
+            "description": "Generate a stack track in the output",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "trace",
+            "params": [
+                {
+                    "name": "params",
+                    "description": "Optional parameters to log",
+                    "type": "*"
+                }
+            ],
+            "class": "Debug"
+        }
+    ],
+    "warnings": []
+}
