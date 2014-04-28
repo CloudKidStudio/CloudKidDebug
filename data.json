@@ -3,7 +3,7 @@
         "name": "CloudKid Debug API",
         "description": "CloudKid Debug API",
         "version": "1.0.1",
-        "logo": "cloudkid.png"
+        "logo": ""
     },
     "files": {
         "src/Debug.js": {
