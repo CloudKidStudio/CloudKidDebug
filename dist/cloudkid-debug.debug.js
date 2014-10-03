@@ -56,9 +56,10 @@
         }, Debug._socket.send(JSON.stringify(Debug._messageObj));
         for (var i = 0; i < Debug._messageQueue.length; ++i) Debug._socket.send(JSON.stringify(Debug._messageQueue[i]));
         Debug._messageQueue = null;
-    }, globalErrorHandler = function(errorMsg, url, lineNumber) {
-        return Debug.remoteLog("Error: " + errorMsg + " in " + url + " at line " + lineNumber, "ERROR"), 
-        !1;
+    }, globalErrorHandler = function(message, file, line, column, error) {
+        var logMessage = "Error: " + message + " in " + file + " at line " + line;
+        return column !== undefined && (logMessage += ":" + column), error && (logMessage += "\n" + error.stack), 
+        Debug.remoteLog(logMessage, "ERROR"), !1;
     }, onClose = function() {
         window.onerror = null, Debug._isConnected = !1;
         var s = Debug._socket;
